@@ -26,12 +26,29 @@
 - learning_roadmaps (학습 로드맵)
 - learning_roadmap_items (학습 로드맵 아이템)
 
-## 진행 예정 작업
+### ✅ TASK-003: 기본 패키지 구조 생성 및 설정 클래스
+**완료일**: 2025-08-20
+- BaseEntity 클래스 및 JPA Auditing 설정
+- ApiResponse 표준 응답 구조 구현
+- GlobalExceptionHandler 및 커스텀 예외 클래스
+- WebConfig (CORS 설정)
+- SwaggerConfig (OpenAPI 3.0 커스터마이징)
+- JacksonConfig (JSON 직렬화 설정)
+- 유틸리티 클래스 (Extensions, PageUtils)
 
-### 🔄 TASK-003: 기본 패키지 구조 생성 및 설정 클래스
-- config 패키지: WebConfig, SwaggerConfig
-- common 패키지: BaseEntity, ApiResponse
-- exception 패키지: 커스텀 예외 클래스
+**구현된 패키지 구조**:
+```
+com.careercoach/
+├── common/
+│   ├── dto/          # ApiResponse
+│   ├── entity/       # BaseEntity
+│   ├── exception/    # CustomExceptions, GlobalExceptionHandler
+│   └── util/         # Extensions, PageUtils
+├── config/           # WebConfig, SwaggerConfig, JacksonConfig
+└── controller/       # HealthController
+```
+
+## 진행 예정 작업
 
 ### 📋 TASK-004: Profile 도메인 모델 및 JPA 엔티티
 - Profile, Experience, Project, TechnicalSkill 엔티티
