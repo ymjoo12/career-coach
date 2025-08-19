@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/careercoach_test
+    username: test
+    password: test123
+    
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    
+  flyway:
+    enabled: false
+    
+logging:
+  level:
+    com.careercoach: INFO
+    org.springframework.web: WARN

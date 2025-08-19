@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    show-sql: true
+    
+logging:
+  level:
+    com.careercoach: DEBUG
+    org.springframework.web: DEBUG
+    
+springdoc:
+  swagger-ui:
+    enabled: true
