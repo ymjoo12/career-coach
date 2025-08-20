@@ -44,6 +44,12 @@ dependencies {
     // Logging
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
     
+    // Google Gemini API
+    implementation("com.google.cloud:google-cloud-vertexai:1.1.0")
+    
+    // HTTP Client for API calls (backup option)
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    
     // Development
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     
