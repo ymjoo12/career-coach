@@ -33,21 +33,8 @@ class Experience(
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id", nullable = false)
-    var profile: Profile? = null,
-    
-    @OneToMany(mappedBy = "experience", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val projects: MutableList<Project> = mutableListOf()
+    var profile: Profile? = null
 ) : BaseEntity() {
-    
-    fun addProject(project: Project) {
-        projects.add(project)
-        project.experience = this
-    }
-    
-    fun removeProject(project: Project) {
-        projects.remove(project)
-        project.experience = null
-    }
     
     fun calculateDuration(): Int {
         val end = if (isCurrent) LocalDate.now() else (endDate ?: startDate)

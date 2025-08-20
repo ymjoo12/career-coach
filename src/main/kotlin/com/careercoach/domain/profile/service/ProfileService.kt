@@ -151,19 +151,6 @@ class ProfileService(
             description = request.description
         )
         
-        // 프로젝트 추가
-        request.projects.forEach { projectRequest ->
-            val project = Project(
-                name = projectRequest.name,
-                description = projectRequest.description,
-                techStack = projectRequest.techStack,
-                role = projectRequest.role,
-                startDate = projectRequest.startDate,
-                endDate = projectRequest.endDate
-            )
-            experience.addProject(project)
-        }
-        
         profile.addExperience(experience)
         val savedProfile = profileRepository.save(profile)
         

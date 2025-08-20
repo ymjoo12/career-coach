@@ -13,11 +13,10 @@ interface ExperienceRepository : JpaRepository<Experience, Long> {
     
     @Query("""
         SELECT e FROM Experience e
-        LEFT JOIN FETCH e.projects
         WHERE e.profile.id = :profileId
         ORDER BY e.startDate DESC
     """)
-    fun findByProfileIdWithProjects(@Param("profileId") profileId: Long): List<Experience>
+    fun findByProfileIdOrderByStartDateDesc(@Param("profileId") profileId: Long): List<Experience>
     
     fun countByProfileId(profileId: Long): Long
 }

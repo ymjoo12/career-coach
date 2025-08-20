@@ -62,6 +62,12 @@ dependencies {
     testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
+buildscript {
+    dependencies {
+        classpath("org.postgresql:postgresql:42.7.1")
+    }
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
@@ -88,4 +94,12 @@ tasks.jacocoTestReport {
 
 jacoco {
     toolVersion = "0.8.11"
+}
+
+flyway {
+    url = "jdbc:postgresql://localhost:5434/careercoach"
+    user = "careercoach"
+    password = "careercoach123"
+    schemas = arrayOf("public")
+    locations = arrayOf("classpath:db/migration")
 }

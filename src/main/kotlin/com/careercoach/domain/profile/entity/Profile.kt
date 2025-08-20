@@ -34,6 +34,12 @@ class Profile(
     @OneToMany(mappedBy = "profile", cascade = [CascadeType.ALL], orphanRemoval = true)
     val technicalSkills: MutableList<TechnicalSkill> = mutableListOf(),
     
+    @OneToMany(mappedBy = "profile", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val projects: MutableList<Project> = mutableListOf(),
+    
+    @Column(name = "current_position", length = 100)
+    var currentPosition: String? = null,
+    
     @OneToMany(mappedBy = "profile", cascade = [CascadeType.REMOVE])
     val interviewQuestionSets: MutableList<InterviewQuestionSet> = mutableListOf(),
     
@@ -59,6 +65,16 @@ class Profile(
     fun removeTechnicalSkill(skill: TechnicalSkill) {
         technicalSkills.remove(skill)
         skill.profile = null
+    }
+    
+    fun addProject(project: Project) {
+        projects.add(project)
+        project.profile = this
+    }
+    
+    fun removeProject(project: Project) {
+        projects.remove(project)
+        project.profile = null
     }
     
     fun calculateTotalExperience(): Int {

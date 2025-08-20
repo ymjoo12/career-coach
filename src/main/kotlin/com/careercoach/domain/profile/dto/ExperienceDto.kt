@@ -80,7 +80,7 @@ data class ExperienceResponse(
                 isCurrent = experience.isCurrent,
                 description = experience.description,
                 durationMonths = experience.calculateDuration(),
-                projects = experience.projects.map { ProjectResponse.from(it) }
+                projects = emptyList() // Projects are now directly under Profile
             )
         }
     }
@@ -142,7 +142,7 @@ data class ProjectResponse(
                 id = project.id!!,
                 name = project.name,
                 description = project.description,
-                techStack = project.techStack,
+                techStack = project.technologies,
                 role = project.role,
                 startDate = project.startDate,
                 endDate = project.endDate

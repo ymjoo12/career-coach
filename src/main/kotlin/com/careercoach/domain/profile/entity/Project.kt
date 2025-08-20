@@ -5,41 +5,43 @@ import jakarta.persistence.*
 import java.time.LocalDate
 
 @Entity
-@Table(
-    name = "projects",
-    indexes = [
-        Index(name = "idx_projects_experience_id", columnList = "experience_id")
-    ]
-)
+@Table(name = "projects")
 class Project(
     @Column(nullable = false, length = 200)
     var name: String,
     
     @Column(columnDefinition = "TEXT")
-    var description: String? = null,
-    
-    @Column(name = "tech_stack", columnDefinition = "TEXT")
-    var techStack: String? = null,
-    
-    @Column(length = 200)
-    var role: String? = null,
+    var description: String,
     
     @Column(name = "start_date")
-    var startDate: LocalDate? = null,
+    var startDate: LocalDate,
     
     @Column(name = "end_date")
     var endDate: LocalDate? = null,
     
+    @Column(columnDefinition = "TEXT")
+    var technologies: String? = null,
+    
+    @Column(columnDefinition = "TEXT")
+    var role: String? = null,
+    
+    @Column(columnDefinition = "TEXT")
+    var achievements: String? = null,
+    
+    @Column(length = 500)
+    var url: String? = null,
+    
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "experience_id", nullable = false)
-    var experience: Experience? = null
+    @JoinColumn(name = "profile_id", nullable = false)
+    var profile: Profile? = null
 ) : BaseEntity() {
     
-    fun getTechStackList(): List<String> {
-        return techStack?.split(",")?.map { it.trim() } ?: emptyList()
+    fun isOngoing(): Boolean {
+        return endDate == null
     }
     
-    fun setTechStackList(techs: List<String>) {
-        techStack = techs.joinToString(", ")
+    fun calculateDuration(): Int {
+        val end = endDate ?: LocalDate.now()
+        return ((end.toEpochDay() - startDate.toEpochDay()) / 30).toInt()
     }
 }
