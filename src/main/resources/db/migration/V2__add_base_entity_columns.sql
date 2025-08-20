@@ -1,0 +1,12 @@
+-- BaseEntity를 상속받는 테이블들에 updated_at 컬럼 추가
+ALTER TABLE interview_question_sets 
+ADD COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE interview_questions 
+ADD COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE learning_roadmaps 
+ADD COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE learning_roadmap_items 
+ADD COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;

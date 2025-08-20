@@ -48,12 +48,42 @@ com.careercoach/
 └── controller/       # HealthController
 ```
 
-## 진행 예정 작업
+### ✅ TASK-004: Profile 도메인 모델 및 JPA 엔티티
+**완료일**: 2025-08-20
+- Profile, Experience, Project, TechnicalSkill 엔티티 구현
+- InterviewQuestionSet, InterviewQuestion 엔티티 구현
+- LearningRoadmap, LearningRoadmapItem 엔티티 구현
+- 모든 Repository 인터페이스 생성
+- Flyway 마이그레이션 V2 추가 (BaseEntity 컬럼)
 
-### 📋 TASK-004: Profile 도메인 모델 및 JPA 엔티티
-- Profile, Experience, Project, TechnicalSkill 엔티티
-- JPA Auditing 설정
-- 연관관계 매핑
+**구현된 엔티티 구조**:
+```
+domain/
+├── profile/
+│   ├── entity/
+│   │   ├── Profile          # 프로필 정보
+│   │   ├── Experience       # 경력 정보
+│   │   ├── Project          # 프로젝트 정보
+│   │   └── TechnicalSkill   # 기술 스킬
+│   └── repository/
+│       ├── ProfileRepository
+│       ├── ExperienceRepository
+│       └── TechnicalSkillRepository
+├── interview/
+│   ├── entity/
+│   │   ├── InterviewQuestionSet  # 질문 세트
+│   │   └── InterviewQuestion      # 개별 질문
+│   └── repository/
+│       └── InterviewQuestionSetRepository
+└── learning/
+    ├── entity/
+    │   ├── LearningRoadmap       # 학습 로드맵
+    │   └── LearningRoadmapItem   # 로드맵 아이템
+    └── repository/
+        └── LearningRoadmapRepository
+```
+
+## 진행 예정 작업
 
 ### 📋 TASK-005: Profile CRUD API
 - ProfileController
