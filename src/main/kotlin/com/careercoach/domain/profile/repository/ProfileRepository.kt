@@ -16,8 +16,7 @@ interface ProfileRepository : JpaRepository<Profile, Long> {
     
     @Query("""
         SELECT DISTINCT p FROM Profile p
-        LEFT JOIN FETCH p.experiences e
-        LEFT JOIN FETCH e.projects
+        LEFT JOIN FETCH p.experiences
         WHERE p.id = :id
     """)
     fun findByIdWithExperiences(@Param("id") id: Long): Optional<Profile>
@@ -28,13 +27,4 @@ interface ProfileRepository : JpaRepository<Profile, Long> {
         WHERE p.id = :id
     """)
     fun findByIdWithSkills(@Param("id") id: Long): Optional<Profile>
-    
-    @Query("""
-        SELECT DISTINCT p FROM Profile p
-        LEFT JOIN FETCH p.experiences e
-        LEFT JOIN FETCH e.projects
-        LEFT JOIN FETCH p.technicalSkills
-        WHERE p.id = :id
-    """)
-    fun findByIdWithFullDetails(@Param("id") id: Long): Optional<Profile>
 }
