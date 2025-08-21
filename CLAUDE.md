@@ -65,6 +65,11 @@ Controller → Service → Repository → External APIs
 ### Package Organization
 ```
 com.careercoach/
+├── agent/          # Multi-Agent system (Interview, Technical, Behavioral)
+│   ├── base/      # Agent interfaces and base classes
+│   ├── impl/      # Concrete agent implementations
+│   ├── service/   # Agent orchestration service
+│   └── dto/       # Agent-related DTOs
 ├── config/         # Spring configuration, security, WebMVC
 ├── controller/     # REST endpoints with validation
 ├── service/        # Business logic with transaction management
@@ -72,6 +77,8 @@ com.careercoach/
 ├── repository/     # Spring Data JPA repositories
 ├── dto/           # Request/Response DTOs with validation
 ├── external/      # LLM provider integration (Provider pattern)
+├── interview/     # Interview question generation services
+├── learning/      # Learning path generation services
 └── common/        # Shared utilities and exceptions
 ```
 
@@ -81,11 +88,18 @@ com.careercoach/
    - `LLMProvider` interface in `external/llm/`
    - Implementations: `GeminiProvider`, future providers
 
-2. **Smart Caching Strategy**: Profile similarity-based caching (Phase 2)
+2. **Multi-Agent System**: Specialized agents for different aspects of career coaching
+   - `InterviewAgent`: General interview questions
+   - `TechnicalAgent`: Deep technical assessments and coding challenges
+   - `BehavioralAgent`: Behavioral and cultural fit assessments
+   - `AgentOrchestrator`: Coordinates multiple agents in parallel/sequential execution
+
+3. **Smart Caching Strategy**: Profile similarity-based caching (Phase 2)
    - Cache similar profile questions
    - Reduce LLM API calls by 40-60%
+   - Agent-level response caching
 
-3. **Two-Stage Question Generation**:
+4. **Two-Stage Question Generation**:
    - Stage 1: Generate base questions from profile
    - Stage 2: Enhance with position-specific context
 
@@ -96,6 +110,12 @@ com.careercoach/
 - `GET /api/v1/profiles/{id}/questions` - Generate interview questions
 - `POST /api/v1/profiles/{id}/questions/followup` - Generate follow-up questions
 - `GET /api/v1/profiles/{id}/learning-paths` - Get learning recommendations
+
+### Multi-Agent Endpoints
+- `POST /api/v1/agents/orchestrate` - Execute multi-agent orchestration
+- `POST /api/v1/agents/interview-questions` - Generate comprehensive interview questions using all agents
+- `GET /api/v1/agents/available` - Get list of available agents
+- `DELETE /api/v1/agents/cache` - Clear agent response cache
 
 ## Development Phases
 
@@ -136,6 +156,7 @@ com.careercoach/
 - ✅ TASK-006: Google Gemini API integration with LLMProvider interface
 - ✅ TASK-007: Two-stage interview question generation service implementation
 - ✅ TASK-008: Learning path generation service with skill gap analysis
+- ✅ TASK-009: Multi-Agent system implementation with Interview, Technical, and Behavioral agents
 
 ### Current Development Notes
 - Application runs on port 8090 due to port conflicts
@@ -154,7 +175,14 @@ com.careercoach/
 - **Templates**: Pre-configured prompts for interview questions, learning paths, resume analysis
 - **Test Endpoints**: Available at `/api/v1/llm/test/*` for development
 
+### Multi-Agent System Details
+- **Agent Types**: Interview, Technical, Behavioral agents with specialized prompts
+- **Orchestration**: Parallel and sequential execution support
+- **Caching**: In-memory cache for agent responses
+- **Fallback**: Each agent has fallback responses for LLM failures
+- **Confidence Scoring**: Each response includes confidence metrics
+
 ### Ready for Next Phase
-- TASK-009: Multi-Agent system for advanced question generation
 - TASK-010: Caching optimization with similarity-based matching
 - TASK-011: Performance monitoring and observability
+- TASK-012: Context intelligence layer for personalization
