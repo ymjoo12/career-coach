@@ -132,6 +132,15 @@ com.careercoach/
 - `POST /api/v1/monitoring/metrics/custom` - Record custom metrics
 - `GET /actuator/prometheus` - Prometheus metrics export
 
+### Context Intelligence Endpoints
+- `POST /api/v1/context/sessions` - Create new context session
+- `GET /api/v1/context/sessions/{id}` - Get session details
+- `PUT /api/v1/context/sessions/{id}/interact` - Record user interaction
+- `POST /api/v1/context/sessions/{id}/analyze-intent` - Analyze user intent
+- `POST /api/v1/context/sessions/{id}/adjust-response` - Adjust response based on context
+- `GET /api/v1/context/sessions/{id}/recommendations` - Get personalized recommendations
+- `GET /api/v1/context/statistics` - Context system statistics
+
 ## Development Phases
 
 **Current Phase**: Planning → Implementation (Phase 1 MVP)
@@ -174,6 +183,7 @@ com.careercoach/
 - ✅ TASK-009: Multi-Agent system implementation with Interview, Technical, and Behavioral agents
 - ✅ TASK-010: Similarity-based caching strategy for profile matching and response reuse
 - ✅ TASK-011: Real-time monitoring dashboard with metrics collection and health checks
+- ✅ TASK-012: Context Intelligence Layer for personalized user experiences
 
 ### Current Development Notes
 - Application runs on port 8090 due to port conflicts
@@ -214,7 +224,15 @@ com.careercoach/
 - **Prometheus Integration**: Export metrics for external monitoring
 - **Custom Metrics**: Application-specific metric recording
 
+### Context Intelligence Layer
+- **User Context Tracking**: Session-based context management with interaction history
+- **Intent Analysis**: Automatic detection of user intent from queries and behavior
+- **Personalization Engine**: Response style adjustment based on preferences and signals
+- **Engagement Analysis**: Real-time engagement level tracking and optimization
+- **Context Signals**: Detection of user state (first-time, confused, urgent need, etc.)
+- **Smart Recommendations**: Context-aware content, action, and learning recommendations
+
 ### Ready for Next Phase
-- TASK-012: Context intelligence layer for personalization
 - TASK-013: Real-time interview simulation with WebSocket
 - TASK-014: Advanced analytics and reporting
+- TASK-015: Mobile API optimization
