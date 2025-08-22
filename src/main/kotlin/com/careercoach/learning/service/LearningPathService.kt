@@ -11,6 +11,7 @@ import mu.KotlinLogging
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import com.careercoach.cache.service.SimilarityBasedCacheService
 
 @Service
 @Transactional(readOnly = true)
@@ -18,7 +19,8 @@ class LearningPathService(
     private val profileRepository: ProfileRepository,
     private val technicalSkillRepository: TechnicalSkillRepository,
     private val llmService: LlmService,
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
+    private val cacheService: SimilarityBasedCacheService
 ) {
     
     private val logger = KotlinLogging.logger {}

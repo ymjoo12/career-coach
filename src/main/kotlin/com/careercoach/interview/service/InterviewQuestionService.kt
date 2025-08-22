@@ -13,6 +13,7 @@ import mu.KotlinLogging
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import com.careercoach.cache.service.SimilarityBasedCacheService
 
 @Service
 @Transactional(readOnly = true)
@@ -20,7 +21,8 @@ class InterviewQuestionService(
     private val profileRepository: ProfileRepository,
     private val technicalSkillRepository: TechnicalSkillRepository,
     private val llmService: LlmService,
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
+    private val cacheService: SimilarityBasedCacheService
 ) {
     
     private val logger = KotlinLogging.logger {}
@@ -37,6 +39,27 @@ class InterviewQuestionService(
     fun generateInterviewQuestions(request: InterviewQuestionRequest): InterviewQuestionResponse {
         logger.info { "Generating interview questions for profile ${request.profileId}" }
         
+        // Check similarity-based cache first
+        val cachedQuestions = cacheService.findSimilarCachedQuestions(
+            request.profileId,
+            request.targetPosition,
+            request.targetCompany
+        )
+        
+        if (cachedQuestions != null && cachedQuestions.confidence > 0.7) {
+            logger.info { "Using cached questions with similarity ${cachedQuestions.similarityScore}" }
+            return try {
+                objectMapper.readValue(cachedQuestions.questions, InterviewQuestionResponse::class.java)
+            } catch (e: Exception) {
+                logger.warn { "Failed to parse cached questions, generating new ones" }
+                generateNewQuestions(request)
+            }
+        }
+        
+        return generateNewQuestions(request)
+    }
+    
+    private fun generateNewQuestions(request: InterviewQuestionRequest): InterviewQuestionResponse {
         // 프로필 조회
         val profile = profileRepository.findByIdWithExperiences(request.profileId)
             .orElseThrow { ResourceNotFoundException("Profile not found with id: ${request.profileId}") }
@@ -54,7 +77,18 @@ class InterviewQuestionService(
         }
         
         // 응답 구성
-        return buildQuestionResponse(request, enhancedQuestions)
+        val response = buildQuestionResponse(request, enhancedQuestions)
+        
+        // Cache the generated questions
+        cacheService.cacheQuestions(
+            request.profileId,
+            request.targetPosition,
+            request.targetCompany,
+            objectMapper.writeValueAsString(response),
+            mapOf("generated_at" to System.currentTimeMillis())
+        )
+        
+        return response
     }
     
     /**
