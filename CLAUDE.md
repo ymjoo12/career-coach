@@ -124,6 +124,14 @@ com.careercoach/
 - `POST /api/v1/cache/warmup` - Pre-populate cache with common profile combinations
 - `DELETE /api/v1/cache/clear` - Clear all caches
 
+### Monitoring Endpoints
+- `GET /api/v1/monitoring/dashboard` - Get comprehensive dashboard metrics
+- `GET /api/v1/monitoring/realtime` - Get real-time activity metrics
+- `GET /api/v1/monitoring/health` - System health check
+- `GET /api/v1/monitoring/alerts` - Get active system alerts
+- `POST /api/v1/monitoring/metrics/custom` - Record custom metrics
+- `GET /actuator/prometheus` - Prometheus metrics export
+
 ## Development Phases
 
 **Current Phase**: Planning → Implementation (Phase 1 MVP)
@@ -165,6 +173,7 @@ com.careercoach/
 - ✅ TASK-008: Learning path generation service with skill gap analysis
 - ✅ TASK-009: Multi-Agent system implementation with Interview, Technical, and Behavioral agents
 - ✅ TASK-010: Similarity-based caching strategy for profile matching and response reuse
+- ✅ TASK-011: Real-time monitoring dashboard with metrics collection and health checks
 
 ### Current Development Notes
 - Application runs on port 8090 due to port conflicts
@@ -197,7 +206,15 @@ com.careercoach/
 - **Performance**: Reduces LLM API calls by 40-60% for similar profile requests
 - **API Endpoints**: `/api/v1/cache/*` for cache management and statistics
 
+### Monitoring & Observability
+- **Metrics Collection**: API, LLM, Cache, System metrics with Micrometer
+- **Real-time Dashboard**: Live metrics visualization and tracking
+- **Health Checks**: Component status monitoring (DB, LLM, Cache, JVM)
+- **Alert System**: Automatic alerts for high error rates, low cache hits, memory issues
+- **Prometheus Integration**: Export metrics for external monitoring
+- **Custom Metrics**: Application-specific metric recording
+
 ### Ready for Next Phase
-- TASK-011: Performance monitoring and observability
 - TASK-012: Context intelligence layer for personalization
 - TASK-013: Real-time interview simulation with WebSocket
+- TASK-014: Advanced analytics and reporting

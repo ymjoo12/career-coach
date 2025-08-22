@@ -28,6 +28,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
     
     // Kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -43,6 +44,10 @@ dependencies {
     
     // Logging
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+    
+    // Monitoring & Metrics
+    implementation("io.micrometer:micrometer-registry-prometheus")
+    implementation("io.micrometer:micrometer-core")
     
     // Google Gemini API
     implementation("com.google.cloud:google-cloud-vertexai:1.1.0")
